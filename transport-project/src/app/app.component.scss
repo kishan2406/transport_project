@@ -1,0 +1,122 @@
+.mainDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-image: url(../assets/travel-bg-image.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  .formDiv {
+    width: 600px;
+    border: solid #c4b6b6 1px;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.468);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(4px);
+    .matInputMainDiv {
+      overflow: auto;
+      max-height: 400px;
+    }
+    .formData {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .matInputDiv {
+        position: relative;
+        padding: 4px 0;
+        padding: 0;
+        border-radius: 12px;
+      }
+
+      .deleteButton {
+        position: absolute;
+        top: 0px;
+        right: 2px;
+        z-index: 10;
+        background: white; 
+        border: solid rgba(244, 67, 54, 1) 1px;
+      }
+
+      .matFormField {
+        width: 100%;
+      }
+    }
+    .headingTrip {
+      text-align: center;
+      font-weight: 600;
+      font-size: 25px;
+    }
+    .btnDiv {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      .btn {
+        border-radius: 35px;
+        width: 100%;
+      }
+    }
+
+    
+  }
+.tripVisualsDiv{
+    display: flex;justify-content: start;margin: 0 2px;
+
+  .tripVisuals {
+    display: flex;
+    align-items: center;
+    width: min(90%, 600px); 
+    // gap:5px;
+    overflow-x: auto;
+    margin: 15px 2px;
+    padding: 10px 0px;
+    justify-content: center;
+    @media screen and (max-width: 767px) {
+      width: 100%; /* On mobile use 90% of screen */
+    }
+  }
+  
+  .tripItem{
+    display: flex;
+    align-items: center;
+    // gap: 8px;
+  }
+  
+  
+  
+  .circle,
+  .line,
+  .arrow {
+    font-size: 14px;
+  }
+  
+  svg {
+    vertical-align: middle;
+  }
+  
+  .icon {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+// =========== Media Query =========
+  @media screen and (max-width: 767px) {
+    .formDiv {
+      width: 100%;
+    }
+    .formDiv .matInputDiv {
+      flex-direction: column;
+    }
+    .formDiv .btnDiv {
+      flex-direction: column;
+    }
+    .matInputMainDiv {
+      max-height: 500px;
+    }
+  }
+}
+
+

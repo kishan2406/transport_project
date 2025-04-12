@@ -1,0 +1,148 @@
+<section class="mainDiv">
+  <div class="formDiv">
+    <form class="formData" [formGroup]="tripForm" (submit)="submitTripForm()">
+      <h3 class="headingTrip">Add Your Routes</h3>
+
+      <div class="matInputMainDiv" formArrayName="trips">
+        @for (trip of trips.controls; track trip; let i = $index) {
+        <div [formGroupName]="i" class="matInputDiv">
+          <button
+            type="button"
+            mat-icon-button
+            color="warn"
+            class="deleteButton"
+            (click)="removeTrip(i)"
+            *ngIf="trips.length > 1"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+          <!-- Start Point -->
+          <mat-form-field class="matFormField" appearance="outline">
+            <mat-label>Start Point</mat-label>
+            <input
+              matInput
+              placeholder="Enter start point"
+              formControlName="start"
+              (input)="toUpperCase($event, i)"
+            />
+            <mat-hint align="end">Example: MMA</mat-hint>
+            @if (hasError('required', 'start', i)) {
+            <mat-error>Please enter start point</mat-error>
+            } @if (hasError('maxlength', 'start', i)) {
+            <mat-error>Only three characters allowed</mat-error>
+            } @if (hasError('minlength', 'start', i)) {
+            <mat-error>Only three characters allowed</mat-error>
+            } @if (hasError('pattern', 'start', i)) {
+            <mat-error>Only letters are allowed. Example:ABC</mat-error>
+            }
+          </mat-form-field>
+
+          <!-- End Point -->
+          <mat-form-field class="matFormField" appearance="outline">
+            <mat-label>End Point</mat-label>
+            <input
+              matInput
+              placeholder="Enter end point"
+              formControlName="end"
+              (input)="toUpperCase($event, i)"
+            />
+            <mat-hint align="end">Example: BLR</mat-hint>
+
+            @if (hasError('required', 'end', i)) {
+            <mat-error>Please enter end point</mat-error>
+            } @if (hasError('maxlength', 'end', i)) {
+            <mat-error>Only three characters allowed</mat-error>
+            } @if (hasError('minlength', 'end', i)) {
+            <mat-error>Only three characters allowed</mat-error>
+            } @if (hasError('pattern', 'end', i)) {
+            <mat-error>Only letters are allowed. Example:ABC</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        }
+      </div>
+
+      <div class="btnDiv">
+        <button
+          type="button"
+          class="btn"
+          mat-raised-button
+          color="accent"
+          (click)="addTrip()"
+          [disabled]="trips.at(trips.length - 1).invalid"
+        >
+        Add More Places
+        </button>
+        <button
+          class="btn"
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="tripForm.invalid && trips.length === 0"
+        >
+        Create Your Journey
+        </button>
+      </div>
+    </form>
+
+    <!-- ======== Visiual bars ======= -->
+    @if (designedTrips.length > 0) {
+    <div class="tripVisualsDiv">
+      <div class="tripVisuals">
+        @for (trip of designedTrips; track trip; let i = $index) {
+        <div
+          class="tripItem flex items-center gap-2"
+          [class.new-line]="trip.type === 'Arrow Line'"
+        >
+          <span>{{ trip.start }}</span
+          >-<span>{{ trip.end }}</span>
+
+          @switch (trip.type) { @case ('Straight Line') { @if (trip.level == 2)
+          {
+          <!-- Same Pickup/Drop: Red Horizontal Line -->
+          <svg
+            width="50"
+            height="10"
+            viewBox="0 0 40 10"
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
+          >
+            <line x1="0" y1="5" x2="40" y2="5" stroke="red" stroke-width="3" />
+          </svg>
+          } @if (trip.level == 1) {
+          <!-- Continue Trip: Black Arrow -->
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
+          >
+            <path
+              d="M5 12h14M13 6l6 6-6 6"
+              stroke="black"
+              stroke-width="2"
+              fill="none"
+            />
+          </svg>
+          } } @case ('Arrow Line') {
+          <!-- Non-Continue Trip: Blue Line -->
+          <svg
+            width="50"
+            height="10"
+            viewBox="0 0 30 10"
+            xmlns="http://www.w3.org/2000/svg"
+            class="icon"
+          >
+            <line x1="0" y1="5" x2="30" y2="5" stroke="blue" stroke-width="4" />
+          </svg>
+          } }
+
+        </div>
+        }
+      </div>
+    </div>
+    }
+  </div>
+</section>
